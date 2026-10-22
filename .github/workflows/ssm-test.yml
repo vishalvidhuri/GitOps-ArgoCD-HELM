@@ -16,6 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug GitHub repository context
+        env:
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_REF: ${{ github.ref }}
+          GH_REPOSITORY_ID: ${{ github.repository_id }}
+          GH_OWNER_ID: ${{ github.repository_owner_id }}
+        run: |
+          echo "Repository: $GH_REPOSITORY"
+          echo "Ref: $GH_REF"
+          echo "Repository ID: $GH_REPOSITORY_ID"
+          echo "Owner ID: $GH_OWNER_ID"
+
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -23,7 +35,8 @@ jobs:
           aws-region: ap-south-1
 
       - name: Verify AWS identity
-        run: aws sts get-caller-identity
+        run: |
+          aws sts get-caller-identity
 
       - name: Send test command to EC2
         run: |
@@ -38,6 +51,7 @@ jobs:
           echo "COMMAND_ID=$COMMAND_ID" >> "$GITHUB_ENV"
 
       - name: Wait for SSM command
+        shell: bash
         run: |
           for i in $(seq 1 24); do
             STATUS=$(aws ssm get-command-invocation \

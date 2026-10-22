@@ -1,0 +1,7 @@
+replicaCount: 1
+image:
+  repository: hello-app
+  tag: "1.0"
+  pullPolicy: Never
+service:
+  port: 80

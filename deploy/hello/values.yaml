@@ -5,3 +5,5 @@ image:
   pullPolicy: Never
 service:
   port: 80
+  type: NodePort
+  nodePort: 30081

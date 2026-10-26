@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: hello-app
-  tag: "build-10"
+  tag: "build-11"
   pullPolicy: Never
 service:
   port: 80

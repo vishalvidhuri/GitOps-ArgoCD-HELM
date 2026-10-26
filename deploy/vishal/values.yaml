@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: vishal-app
-  tag: "build-11"
+  tag: "build-12"
   pullPolicy: Never
 service:
   port: 80

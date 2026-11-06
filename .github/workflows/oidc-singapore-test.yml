@@ -10,17 +10,28 @@ permissions:
 
 jobs:
   test:
+    name: Test AWS OIDC Authentication
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
-      - name: Configure AWS credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::831926627575:role/GitHubActions-Singapore
+          role-session-name: GitHubActions-Singapore-Test
           aws-region: ap-southeast-1
+          audience: sts.amazonaws.com
 
       - name: Verify AWS Account and Region
         run: |
+          echo "Checking AWS identity..."
           aws sts get-caller-identity
-          aws configure get region || true
-          echo "Singapore OIDC authentication successful"
+
+          echo "Checking AWS region..."
+          aws configure get region
+
+          echo "Singapore OIDC authentication successful!"

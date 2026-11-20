@@ -24,8 +24,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: ap-south-1
-      EC2_INSTANCE_ID: i-0c404f37f9d6dda10
+      AWS_REGION: ap-southeast-1
+      EC2_INSTANCE_ID: i-076cc46140ccc0c90
       HELLO_TAG: "build-${{ github.run_number }}"
       VISHAL_TAG: "build-${{ github.run_number }}"
 
@@ -39,7 +39,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::834107150638:role/OIDCconnect
-          aws-region: ap-south-1
+          aws-region: ap-southeast-1
 
       - name: Verify AWS identity
         run: aws sts get-caller-identity
